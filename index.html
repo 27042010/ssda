@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nome Editável</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            position: relative;
+        }
+        button {
+            padding: 15px 30px;
+            font-size: 18px;
+            cursor: pointer;
+            margin: 20px;
+            transition: background-color 0.3s;
+        }
+        input {
+            font-size: 24px;
+            padding: 10px;
+            margin: 20px;
+            text-align: center;
+        }
+        #botaoNao {
+            position: absolute;
+        }
+        #correto {
+            display: none;
+            font-size: 4rem;
+            color: green;
+        }
+        #contagem {
+            display: none;
+            font-size: 2rem;
+            margin-top: 20px;
+        }
+        @media (max-width: 600px) {
+            h1 {
+                font-size: 1.5rem;
+            }
+            button {
+                font-size: 16px;
+                padding: 10px 20px;
+            }
+            #correto {
+                font-size: 2.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <h1>Você acha que <input id="nomeEditavel" value="Anna Sophia"> é gay?</h1>
+
+    <button id="sim">Sim</button>
+    <button id="claro">Claro</button>
+    <button id="botaoNao">Não</button>
+
+    <div id="correto">CORRETO</div>
+    <div id="contagem"></div>
+
+    <!-- Adicionando áudio do gemidão -->
+    <audio id="gemidao">
+        <source src="https://www.myinstants.com/media/sounds/vou_fazer_o_gemidao.mp3" type="audio/mpeg">
+        Seu navegador não suporta áudio.
+    </audio>
+
+    <script>
+        const botaoNao = document.getElementById('botaoNao');
+        const correto = document.getElementById('correto');
+        const contagem = document.getElementById('contagem');
+        const gemidao = document.getElementById('gemidao');
+
+        // Função para mostrar "CORRETO" ao clicar em "Sim"
+        document.getElementById('sim').addEventListener('click', function() {
+            correto.style.display = 'block';
+            setTimeout(() => {
+                correto.style.display = 'none';
+            }, 3000); // Apaga após 3 segundos
+        });
+
+        // Função para contagem regressiva ao clicar em "Claro"
+        document.getElementById('claro').addEventListener('click', function() {
+            contagem.style.display = 'block';
+            let countdown = 5; // 5 segundos de contagem
+            contagem.innerText = `Redirecionando em ${countdown} segundos...`;
+            const interval = setInterval(() => {
+                countdown--;
+                contagem.innerText = `Redirecionando em ${countdown} segundos...`;
+                if (countdown <= 0) {
+                    clearInterval(interval);
+                    window.location.href = "https://clonarcartao.com"; // Redireciona
+                }
+            }, 1000);
+        });
+
+        // Função para mover o botão "Não" aleatoriamente
+        botaoNao.addEventListener('mouseover', function() {
+            const x = Math.floor(Math.random() * (window.innerWidth - this.offsetWidth));
+            const y = Math.floor(Math.random() * (window.innerHeight - this.offsetHeight));
+            this.style.left = x + 'px';
+            this.style.top = y + 'px';
+        });
+
+        // Tocar o gemidão quando alguém conseguir clicar no botão "Não"
+        botaoNao.addEventListener('click', function() {
+            gemidao.play();
+        });
+    </script>
+</body>
+</html>
